@@ -1,0 +1,15 @@
+[Unit]
+Description=live.eachserver.com
+
+User=ec2-user
+Type=simple
+
+[Service]
+SuccessExitStatus=143
+
+WorkingDirectory=/home/ec2-user/eachserver/latest
+ExecStart=/usr/bin/java -jar -Dspring.profiles.active=live -Dserver.port=8081 eachserver-0.0.1-SNAPSHOT.jar
+ExecStop=/bin/kill -15 $MAINPID
+
+[Install]
+WantedBy=multi-user.target

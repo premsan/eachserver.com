@@ -1,0 +1,16 @@
+[Unit]
+Description=demo.eachserver.com
+
+[Service]
+SuccessExitStatus=143
+MemoryMax=1000M
+CPUQuota=100%
+User=ec2-user
+Type=simple
+Environment="COM_EACHSERVER_APPLICATION_JDBC_URL=jdbc:h2:mem:eachserver"
+WorkingDirectory=/home/ec2-user/eachserver/latest
+ExecStart=/usr/bin/java -jar -Dspring.profiles.active=demo eachserver-0.0.1-SNAPSHOT.jar
+ExecStop=/bin/kill -15 $MAINPID
+
+[Install]
+WantedBy=multi-user.target
